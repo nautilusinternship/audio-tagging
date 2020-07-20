@@ -1,5 +1,6 @@
 # -----------------------------------------------------------
-# database.py: db layer program for Audio Tagging application
+# modified_knn.py: db layer program for Audio Tagging application
+# (likely not being used but saved for reference!)
 # -----------------------------------------------------------
 import operator
 # Row: audio file --> {word:freq, ...}
