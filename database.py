@@ -40,15 +40,19 @@ class Audio_Params(Base):
     valence = Column(FLOAT())
     instru = Column(FLOAT())
 
+    # get all results from table
     def get_all(self):
         results = session.query(Audio_Params)
         return results
 
+    # get row in table with the given audio file title
     def get_row(self, title):
         results = session.query(Audio_Params)
         row = results.filter(Audio_Params.title == title)
         return row
 
+    # add a new row to the table with the given audio file title and 
+    # descriptive parameters
     def add_row(self, title, params):
         row = Audio_Params(title=title,
             jazz = params[0],
@@ -67,8 +71,9 @@ class Audio_Params(Base):
         session.add(row)
         session.commit()
     
-    # for now, using file title to id files, but if we had a large dataset
-    # where multiple songs have the same title, we'd want to add an id param
+    # delete row in table with the given audio file title
+        # NOTE: for now, using file title to id files, but if we had a large dataset
+        # where multiple songs have the same title, we'd want to add an id param
     def del_row(self, title):
         # assume only one result with title, so pick entry at index 0
         row = self.get_row(title)[0]
