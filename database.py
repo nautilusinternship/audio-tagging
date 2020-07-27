@@ -20,7 +20,13 @@ from sqlalchemy.dialects.postgresql import FLOAT
 # PostgreSQL URL (db is saved locally on my comp so not sure if others can connect)
 # db_string = "postgresql://carinalewandowski:nautilusinternship2020@127.0.0.1/audio_test_db"
 db_string = "postgres://iromfnjf:VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB@ruby.db.elephantsql.com:5432/iromfnjf"
-
+# to set up with tableplus:
+    # name: audio-tagging-test
+    # host/socket: ruby.db.elephantsql.com
+    # port: 5432
+    # user: iromfnjf
+    # password: VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB
+    # database: iromfnjf
 Base = declarative_base()
 
 # table for storing audio file title along with descriptive parameters
@@ -88,11 +94,10 @@ Session = sessionmaker(db)
 session = Session()
 
 # test add row
-# title = "fake song part 3"
-
+# title = "test new db!"
 # params = [0.1, 0.22, 0, 0.1, 0.1, 0.6, 0.1, 0, 0.1, 0.1, 0.1, 1, 1]
 # audioP = Audio_Params()
-# # audioP.add_row(title, params)
+# audioP.add_row(title, params)
 # # test get row
 # # assume only one result with title, so pick entry at index 0
 # row = audioP.get_row(title)[0]
