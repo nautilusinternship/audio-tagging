@@ -7,35 +7,51 @@ app = Flask(__name__)
 # uncomment this to use db
 from database import Audio_Params
 
+def parseURI(uri):
+    uri = uri.split(":")
+    if uri[1] != "track":
+        print("error: this is not a track")
+    else:
+        return uri[len(uri) - 1] 
+
+def createEmbed(uri):
+    return "https://open.spotify.com/embed/track/" + parseURI(uri)
+
 # index/home view
 @app.route('/')
 def index():
     # embed audio clip to be played
     # display input fields
     # redirect to confirmation view
-    html = render_template('index.html')
+
+    audio_embed = createEmbed("spotify:track:6XkuklKiHYVTlVvWlTgQYP")
+    html = render_template('index.html', audio_embed=audio_embed, song_info="Erase Me:Kid Cudi")
     response = make_response(html)
     return response
 
 # https://www.tutorialspoint.com/flask/flask_sending_form_data_to_template.htm
 @app.route('/results',methods = ['POST', 'GET'])
 def results():
-    # this will just show ur results on the webpage
     if request.method == 'POST':
         result = request.form
         params = []
         title = ""
+        artist = ""
         for r in result:
             val = result[r]
             # convert values from string to float
-            if r != 'title':
+            if r != 'song_info':
                 val = float(val)
                 params.append(val)
             else:
-                title = val
+                val = val.split(':')
+                title = val[0]
+                artist = val[1]
+        print(title)
+        print(artist)
         # uncomment this to add to db
         entry = Audio_Params().add_row(title, params)
-    return render_template("results.html",result = result)
+    return render_template("results.html",result=result)
 
 
 # confirmation view

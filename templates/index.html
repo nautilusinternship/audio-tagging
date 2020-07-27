@@ -21,9 +21,16 @@
          </form>
     </div> -->
 
+    <!-- https://stackoverflow.com/questions/19221412/how-to-create-slider-with-decimal-values-using-html -->
+
     <div id="audio-form">
-        <form action = "http://localhost:5000/results" method = "POST">
-            <p>Title <input type = "text" name = "title" /></p>
+        <!-- <iframe src="https://open.spotify.com/embed/track/6XkuklKiHYVTlVvWlTgQYP" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
+        <iframe src="{{ audio_embed }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <form action="/results" method="POST">
+            <!-- <p>Title <input type = "text" name = "title" /></p> -->
+            <!-- hidden div to save title of song -->
+            <input name="song_info" value="{{ song_info }}" type="hidden">
+            <!-- <input value = "1" type="hidden" name="my_id"> -->
             <p>Jazz <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "jazz" /></p>
             <p>Rhythm and Blues <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "rb" /></p>
             <p>Rock <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "rock" /></p>
@@ -42,6 +49,7 @@
          </form>
     </div>
 
+    
     <!-- 
     title = Column(String, primary_key=True)
     jazz = Column(FLOAT())
