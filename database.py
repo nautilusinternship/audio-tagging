@@ -18,13 +18,15 @@ from sqlalchemy.dialects.postgresql import FLOAT
 
 
 # PostgreSQL URL (db is saved locally on my comp so not sure if others can connect)
-db_string = "postgresql://carinalewandowski:nautilusinternship2020@127.0.0.1/audio_test_db"
+# db_string = "postgresql://carinalewandowski:nautilusinternship2020@127.0.0.1/audio_test_db"
+db_string = "postgres://iromfnjf:VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB@ruby.db.elephantsql.com:5432/iromfnjf"
 
 Base = declarative_base()
 
 # table for storing audio file title along with descriptive parameters
 class Audio_Params(Base):
     __tablename__ = 'audio_params'
+    # __tablename__ = 'iromfnjf'
     title = Column(String, primary_key=True)
     jazz = Column(FLOAT())
     rb = Column(FLOAT())
@@ -86,16 +88,17 @@ Session = sessionmaker(db)
 session = Session()
 
 # test add row
-title = "fake song part 3"
-params = [0.1, 0.22, 0, 0.1, 0.1, 0.6, 0.1, 0, 0.1, 0.1, 0.1, 1, 1]
-audioP = Audio_Params()
-# audioP.add_row(title, params)
-# test get row
-# assume only one result with title, so pick entry at index 0
-row = audioP.get_row(title)[0]
-print(str(row.title))
-# test delete row
-# audioP.del_row(title)
+# title = "fake song part 3"
 
-# disconnect
-session.close()
+# params = [0.1, 0.22, 0, 0.1, 0.1, 0.6, 0.1, 0, 0.1, 0.1, 0.1, 1, 1]
+# audioP = Audio_Params()
+# # audioP.add_row(title, params)
+# # test get row
+# # assume only one result with title, so pick entry at index 0
+# row = audioP.get_row(title)[0]
+# print(str(row.title))
+# # test delete row
+# # audioP.del_row(title)
+
+# # disconnect
+# session.close()
