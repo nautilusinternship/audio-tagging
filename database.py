@@ -21,13 +21,14 @@ from sqlalchemy.dialects.postgresql import FLOAT
 # db_string = "postgresql://carinalewandowski:nautilusinternship2020@127.0.0.1/audio_test_db"
 db_string = "postgres://iromfnjf:VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB@ruby.db.elephantsql.com:5432/iromfnjf"
 # to set up with tableplus:
-    # name: audio-tagging-test
-    # host/socket: ruby.db.elephantsql.com
-    # port: 5432
-    # user: iromfnjf
-    # password: VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB
-    # database: iromfnjf
+# name: audio-tagging-test
+# host/socket: ruby.db.elephantsql.com
+# port: 5432
+# user: iromfnjf
+# password: VasJUQYZnTDLk3I5Rfk7zWsXc5WdZKjB
+# database: iromfnjf
 Base = declarative_base()
+
 
 # table for storing audio file title along with descriptive parameters
 class Audio_Params(Base):
@@ -63,30 +64,52 @@ class Audio_Params(Base):
     # descriptive parameters
     def add_row(self, title, params):
         row = Audio_Params(title=title,
-            jazz = params[0],
-            rb = params[1],
-            rock = params[2],
-            country = params[3],
-            dance = params[4],
-            hh = params[5],
-            classical = params[6],
-            pop = params[7],
-            ed = params[8],
-            speed = params[9],
-            vol = params[10],
-            valence = params[11],
-            instru = params[12])
+                           jazz=params[0],
+                           rb=params[1],
+                           rock=params[2],
+                           country=params[3],
+                           dance=params[4],
+                           hh=params[5],
+                           classical=params[6],
+                           pop=params[7],
+                           ed=params[8],
+                           speed=params[9],
+                           vol=params[10],
+                           valence=params[11],
+                           instru=params[12])
         session.add(row)
         session.commit()
-    
+
+    # Update the database if the song title exists already in the database
+    # what does sessions.query return?
+    # what does get_row return?
+    # how do you update a row in the database
+    def update_row(self, title, params):
+        # returns a row object from the database
+        row = self.get_row(self, title)
+        # make this row object a dictionary
+        row_dict = row.__dict__
+        if len(row_dict) == 0:
+            self.add_row(self, title, params)
+        else:
+            i = 0
+            for key in row_dict:
+                if key != "title":  # not sure if this is what the key is called
+                    # need to get user_confidence
+                    row_dict[key] = (row_dict[key] + params[i] * user_confidence) / (2 - (1 - user_confidence))
+                    # is this how you update?
+                    session.query(row).update({key: row_dict[key]})
+                    i += 1
+
     # delete row in table with the given audio file title
-        # NOTE: for now, using file title to id files, but if we had a large dataset
-        # where multiple songs have the same title, we'd want to add an id param
+    # NOTE: for now, using file title to id files, but if we had a large dataset
+    # where multiple songs have the same title, we'd want to add an id param
     def del_row(self, title):
         # assume only one result with title, so pick entry at index 0
         row = self.get_row(title)[0]
         session.delete(row)
-        session.commit()   
+        session.commit()
+
 
 # connect to database
 db = create_engine(db_string)

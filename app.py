@@ -3,19 +3,23 @@
 # --------------------------------------------------------
 
 from flask import Flask, request, redirect, make_response, render_template
-app = Flask(__name__)
 # uncomment this to use db
 from database import Audio_Params
+
+app = Flask(__name__)
+
 
 def parseURI(uri):
     uri = uri.split(":")
     if uri[1] != "track":
         print("error: this is not a track")
     else:
-        return uri[len(uri) - 1] 
+        return uri[len(uri) - 1]
+
 
 def createEmbed(uri):
     return "https://open.spotify.com/embed/track/" + parseURI(uri)
+
 
 # index/home view
 @app.route('/')
@@ -29,8 +33,9 @@ def index():
     response = make_response(html)
     return response
 
+
 # https://www.tutorialspoint.com/flask/flask_sending_form_data_to_template.htm
-@app.route('/results',methods = ['POST', 'GET'])
+@app.route('/results', methods=['POST', 'GET'])
 def results():
     if request.method == 'POST':
         result = request.form
@@ -50,8 +55,8 @@ def results():
         print(title)
         print(artist)
         # uncomment this to add to db
-        entry = Audio_Params().add_row(title, params)
-    return render_template("results.html",result=result)
+        entry = Audio_Params().update_row(title, params)
+    return render_template("results.html", result=result)
 
 
 # confirmation view
@@ -67,6 +72,7 @@ def success():
     # response = make_response(html)
     # return response
     return 'success'
+
 
 if __name__ == "__main__":
     app.run()
