@@ -3,9 +3,20 @@
 # --------------------------------------------------------
 
 from flask import Flask, request, redirect, make_response, render_template
+import csv
+import random
 app = Flask(__name__)
 # uncomment this to use db
 from database import Audio_Params
+
+def getRandomSong():
+    with open('test1doc.csv') as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        # lines= len(list(readCSV))
+        chosen_row = random.choice(list(readCSV))
+
+    return {"song_info":chosen_row[0]+":"+chosen_row[1], "uri":chosen_row[2]}
+    
 
 def parseURI(uri):
     uri = uri.split(":")
@@ -23,9 +34,9 @@ def index():
     # embed audio clip to be played
     # display input fields
     # redirect to confirmation view
-
-    audio_embed = createEmbed("spotify:track:6XkuklKiHYVTlVvWlTgQYP")
-    html = render_template('index.html', audio_embed=audio_embed, song_info="Erase Me:Kid Cudi")
+    song = getRandomSong()
+    audio_embed = createEmbed(song['uri'])
+    html = render_template('index.html', audio_embed=audio_embed, song_info=song['song_info'])
     response = make_response(html)
     return response
 
