@@ -40,7 +40,7 @@ def index():
     # redirect to confirmation view
     song = getRandomSong()
     audio_embed = createEmbed(song['uri'])
-    html = render_template('index.html', audio_embed=audio_embed, song_info=song['song_info'])
+    html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI(song['uri']) + ":" + song['song_info'])
     response = make_response(html)
     return response
 
@@ -51,6 +51,7 @@ def results():
     if request.method == 'POST':
         result = request.form
         params = []
+        uri = ""
         title = ""
         artist = ""
         for r in result:
@@ -61,13 +62,17 @@ def results():
                 params.append(val)
             else:
                 val = val.split(':')
-                title = val[0]
-                artist = val[1]
+                uri = val[0]
+                title = val[1]
+                artist = val[2]
+        print(uri)
         print(title)
         print(artist)
+        params.append(0)
+        print(result)
         # uncomment this to add to db
-        entry = Audio_Params().update_row(title, params)
-    return render_template("results.html", result=result)
+        entry = Audio_Params().add_row(uri, params)
+    return render_template("results.html", result=result, artist=artist, title=title)
 
 
 # confirmation view

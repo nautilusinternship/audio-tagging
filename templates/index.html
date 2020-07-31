@@ -1,232 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- {{ url_for('static',filename='index.css') }} -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static',filename='index.css') }}"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Home</title>
-  </head>
+<!doctype html>
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
+    <title>Hello from Flask</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
 
-  <body>
+<body>
     <div id="title">Audio Tagging</div>
-    <br />
+    <br>
     <!-- <div id="description">Please enter the top three words that you believe best describe the audio clip.</div>
-        <br>
-        <div id="audio-form">
-            <form action = "http://localhost:5000/results" method = "POST">
-                <p>1. <input type = "text" name = "1" /></p>
-                <p>2. <input type = "text" name = "2" /></p>
-                <p>3. <input type = "text" name = "3" /></p>
-                <p><input type = "submit" value = "submit" /></p>
-             </form>
-        </div> -->
+    <br>
+    <div id="audio-form">
+        <form action = "http://localhost:5000/results" method = "POST">
+            <p>1. <input type = "text" name = "1" /></p>
+            <p>2. <input type = "text" name = "2" /></p>
+            <p>3. <input type = "text" name = "3" /></p>
+            <p><input type = "submit" value = "submit" /></p>
+         </form>
+    </div> -->
 
     <!-- https://stackoverflow.com/questions/19221412/how-to-create-slider-with-decimal-values-using-html -->
 
     <div id="audio-form">
-      <!-- <iframe src="https://open.spotify.com/embed/track/6XkuklKiHYVTlVvWlTgQYP" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
-      <iframe
-        src="{{ audio_embed }}"
-        width="300"
-        height="80"
-        frameborder="0"
-        allowtransparency="true"
-        allow="encrypted-media"
-      ></iframe>
-      <form action="/results" method="POST">
-        <!-- <p>Title <input type = "text" name = "title" /></p> -->
-        <!-- hidden div to save title of song -->
-        <input name="song_info" value="{{ song_info }}" type="hidden" />
-        <!-- <input value = "1" type="hidden" name="my_id"> -->
-        <p>
-          Jazz
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="jazz"
-          />
-        </p>
-        <p>
-          Rhythm and Blues
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="rb"
-          />
-        </p>
-        <p>
-          Rock
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="rock"
-          />
-        </p>
-        <p>
-          Country
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="country"
-          />
-        </p>
-        <p>
-          Dance
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="dance"
-          />
-        </p>
-        <p>
-          Hip Hop
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="hh"
-          />
-        </p>
-        <p>
-          Classical
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="classical"
-          />
-        </p>
-        <p>
-          Pop
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="pop"
-          />
-        </p>
-        <p>
-          Electronic Dance Music
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="ed"
-          />
-        </p>
-        <p>
-          Speed
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="speed"
-          />
-        </p>
-        <p>
-          Volume
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="vol"
-          />
-        </p>
-        <p>
-          Valence
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="valence"
-          />
-        </p>
-        <p>
-          Instrumental
-          <input
-            type="range"
-            min="0.0"
-            max="1.0"
-            step="0.01"
-            value="0.5"
-            name="instru"
-          />
-        </p>
+        <!-- <iframe src="https://open.spotify.com/embed/track/6XkuklKiHYVTlVvWlTgQYP" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
+        <iframe src="{{ audio_embed }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <form action="/results" method="POST">
+            <!-- <p>Title <input type = "text" name = "title" /></p> -->
+            <!-- hidden div to save title of song -->
+            <input name="song_info" value="{{ song_info }}" type="hidden">
+            <!-- <input value = "1" type="hidden" name="my_id"> -->
+            <p>Jazz <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "jazz" /></p>
+            <p>Rhythm and Blues <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "rb" /></p>
+            <p>Rock <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "rock" /></p>
+            <p>Country <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "country" /></p>
+            <p>Dance <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "dance" /></p>
+            <p>Hip Hop <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "hh" /></p>
+            <p>Classical <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "classical" /></p>
+            <p>Pop <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "pop" /></p>
+            <p>Electronic Dance Music <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "ed" /></p>
+            <p>Speed <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "speed" /></p>
+            <p>Volume <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "vol" /></p>
+            <p>Valence <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "valence" /></p>
+            <p>Instrumental <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name = "instru" /></p>
 
-        <p><input type="submit" value="Submit" id="submit" disabled /></p>
-      </form>
+            <p><input type="submit" value="Submit" id="submit"/></p>
+            <p><input type="button" onclick="window.location.reload(true);" value="Skip song"/></p>
+         </form>
     </div>
     <script type="text/javascript">
-      window.onload = function(){
-          setTimeout(function(){
-              // var element = document.getElementsByName("submit")[0] ;
-              let element = document.getElementById("submit");
-              element.disabled = false;
-          }, 15000);
-      };
+    window.onload = function(){
+        setTimeout(function(){  
+            // var element = document.getElementsByName("submit")[0] ;
+            let element = document.getElementById("submit");
+            element.disabled = false;
+        }, 15000);
+    }
     </script>
 
+    
     <!-- 
-        title = Column(String, primary_key=True)
-        jazz = Column(FLOAT())
-        rb = Column(FLOAT())
-        rock = Column(FLOAT())
-        country = Column(FLOAT())
-        dance = Column(FLOAT())
-        hh = Column(FLOAT())
-        classical = Column(FLOAT())
-        pop = Column(FLOAT())
-        ed = Column(FLOAT())
-        speed = Column(FLOAT())
-        vol = Column(FLOAT())
-        valence = Column(FLOAT())
-        instru = Column(FLOAT())
-        -->
-  </body>
-</html>
+    title = Column(String, primary_key=True)
+    jazz = Column(FLOAT())
+    rb = Column(FLOAT())
+    rock = Column(FLOAT())
+    country = Column(FLOAT())
+    dance = Column(FLOAT())
+    hh = Column(FLOAT())
+    classical = Column(FLOAT())
+    pop = Column(FLOAT())
+    ed = Column(FLOAT())
+    speed = Column(FLOAT())
+    vol = Column(FLOAT())
+    valence = Column(FLOAT())
+    instru = Column(FLOAT())
+    -->
+
+    
+</body>

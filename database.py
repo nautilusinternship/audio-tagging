@@ -6,7 +6,7 @@
 ''' using my IW as a template for setting up functions with SQLAlchemy, 
 but we can change this if people like something else better! '''
 
-from sqlalchemy import create_engine, Column, String
+from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import FLOAT
@@ -34,7 +34,7 @@ Base = declarative_base()
 class Audio_Params(Base):
     __tablename__ = 'audio_params'
     # __tablename__ = 'iromfnjf'
-    title = Column(String, primary_key=True)
+    uri = Column(String, primary_key=True)
     jazz = Column(FLOAT())
     rb = Column(FLOAT())
     rock = Column(FLOAT())
@@ -48,6 +48,7 @@ class Audio_Params(Base):
     vol = Column(FLOAT())
     valence = Column(FLOAT())
     instru = Column(FLOAT())
+    tag_count = Column(Integer, default=0)
 
     # get all results from table
     def get_all(self):
@@ -55,15 +56,15 @@ class Audio_Params(Base):
         return results
 
     # get row in table with the given audio file title
-    def get_row(self, title):
+    def get_row(self, uri):
         results = session.query(Audio_Params)
-        row = results.filter(Audio_Params.title == title)
+        row = results.filter(Audio_Params.uri == uri)
         return row
 
     # add a new row to the table with the given audio file title and 
     # descriptive parameters
-    def add_row(self, title, params):
-        row = Audio_Params(title=title,
+    def add_row(self, uri, params):
+        row = Audio_Params(uri=uri,
                            jazz=params[0],
                            rb=params[1],
                            rock=params[2],
@@ -86,9 +87,10 @@ class Audio_Params(Base):
     # how do you update a row in the database
     def update_row(self, title, params):
         # returns a row object from the database
-        row = self.get_row(self, title)
+        row = self.get_row(title)
         # make this row object a dictionary
         row_dict = row.__dict__
+        print(row_dict)
         if len(row_dict) == 0:
             self.add_row(self, title, params)
         else:
