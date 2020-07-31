@@ -70,7 +70,7 @@ def results():
         print(artist)
         params.append(0)
         # uncomment this to add to db
-        entry = Audio_Params().add_row(title, params)
+        entry = Audio_Params().add_row(uri, params)
     return render_template("results.html", result=result)
 
 

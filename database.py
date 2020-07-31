@@ -56,15 +56,15 @@ class Audio_Params(Base):
         return results
 
     # get row in table with the given audio file title
-    def get_row(self, title):
+    def get_row(self, uri):
         results = session.query(Audio_Params)
         row = results.filter(Audio_Params.uri == uri)
         return row
 
     # add a new row to the table with the given audio file title and 
     # descriptive parameters
-    def add_row(self, title, params):
-        row = Audio_Params(uri=title,
+    def add_row(self, uri, params):
+        row = Audio_Params(uri=uri,
                            jazz=params[0],
                            rb=params[1],
                            rock=params[2],
