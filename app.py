@@ -69,9 +69,10 @@ def results():
         print(title)
         print(artist)
         params.append(0)
+        print(result)
         # uncomment this to add to db
         entry = Audio_Params().add_row(uri, params)
-    return render_template("results.html", result=result)
+    return render_template("results.html", result=result, artist=artist, title=title)
 
 
 # confirmation view
