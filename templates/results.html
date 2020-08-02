@@ -1,22 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
-    <title>Hello from Flask</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('static',filename='index.css') }}"
+  />
+  <title>Hello from Flask</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet"
+  />
 </head>
 
 <body>
-    <div id="title">Audio Tagging</div>
-    <div id="ranking">
-        {{title}} by {{artist}}
-        <br>
-        {% for key, value in result.items() %}
-            {% if key != 'song_info' %}
-                  {{ key }}. {{ value }} <br>
-            {% endif %}
-        {% endfor %}
-        <p><input type="button" onclick="window.location.href='http://localhost:5000/'" value="Tag another song"/></p>
-    </div>
+  <div id="title">Audio Tagging</div>
+  <div id="ranking">
+    {{title}} by {{artist}}
+    <br />
+    {% for key, value in result.items() %} {% if key != 'song_info' %} {{ key
+    }}. {{ value }} <br />
+    {% endif %} {% endfor %}
+    <p>
+      <input
+        type="button"
+        onclick="window.location.href='http://localhost:5000/'"
+        value="Tag another song"
+      />
+    </p>
+  </div>
 </body>

@@ -39,8 +39,8 @@ def index():
     # display input fields
     # redirect to confirmation view
     song = getRandomSong()
-    audio_embed = createEmbed(song['uri'])
-    html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI(song['uri']) + ":" + song['song_info'])
+    audio_embed = createEmbed("spotify:track:7ytR5pFWmSjzHJIeQkgog4")
+    html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI("spotify:track:7ytR5pFWmSjzHJIeQkgog4") + ":" + " ROCKSTAR (feat. Roddy Ricch): DaBaby")
     response = make_response(html)
     return response
 
@@ -49,29 +49,27 @@ def index():
 @app.route('/results', methods=['POST', 'GET'])
 def results():
     if request.method == 'POST':
-        result = request.form
-        params = []
+        result = request.form.to_dict()
         uri = ""
         title = ""
         artist = ""
         for r in result:
-            val = result[r]
             # convert values from string to float
             if r != 'song_info':
-                val = float(val)
-                params.append(val)
+                result[r] = float(result[r])
             else:
-                val = val.split(':')
+                val = result[r].split(':')
                 uri = val[0]
                 title = val[1]
                 artist = val[2]
         print(uri)
         print(title)
         print(artist)
-        params.append(0)
+        # Do this some other way
+        # params.append(0)
         print(result)
         # uncomment this to add to db
-        entry = Audio_Params().add_row(uri, params)
+        entry = Audio_Params().update_row(uri, result)
     return render_template("results.html", result=result, artist=artist, title=title)
 
 
