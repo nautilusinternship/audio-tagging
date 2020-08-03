@@ -72,7 +72,8 @@ class Audio_Params(Base):
     # get row in table with the given audio file title
     def get_row(self, uri):
         results = session.query(Audio_Params)
-        row = results.filter(Audio_Params.uri == uri)
+        # get the first row with matching URI (should only be 1 row anyway)
+        row = results.filter(Audio_Params.uri == uri)[0]
         return row
 
     # add a new row to the table with the given audio file title and
@@ -171,12 +172,12 @@ session = Session()
 # test add row
 # title = "test new db!"
 # params = [0.1, 0.22, 0, 0.1, 0.1, 0.6, 0.1, 0, 0.1, 0.1, 0.1, 1, 1]
-# audioP = Audio_Params()
+audioP = Audio_Params()
 # audioP.add_row(title, params)
-# # test get row
-# # assume only one result with title, so pick entry at index 0
-# row = audioP.get_row(title)[0]
-# print(str(row.title))
+# test get row
+# assume only one result with title, so pick entry at index 0
+row = audioP.get_row("0hCB0YR03f6AmQaHbwWDe8")
+print(str(row.jazz))
 # # test delete row
 # # audioP.del_row(title)
 
