@@ -4,9 +4,11 @@
 
 from flask import Flask, request, redirect, make_response, render_template
 # uncomment this to use db
-from database import Audio_Params
+# from database import Audio_Params
+from database_new import Audio_Params
 import csv
 import random
+from itertools import tee
 
 app = Flask(__name__)
 
@@ -39,8 +41,14 @@ def index():
     # display input fields
     # redirect to confirmation view
     song = getRandomSong()
-    audio_embed = createEmbed("spotify:track:7ytR5pFWmSjzHJIeQkgog4")
-    html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI("spotify:track:7ytR5pFWmSjzHJIeQkgog4") + ":" + " ROCKSTAR (feat. Roddy Ricch): DaBaby")
+    print(song)
+
+    # hard coded in
+    # audio_embed = createEmbed("spotify:track:7ytR5pFWmSjzHJIeQkgog4")
+    # html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI("spotify:track:7ytR5pFWmSjzHJIeQkgog4") + ":" + " ROCKSTAR (feat. Roddy Ricch): DaBaby")
+    
+    audio_embed = createEmbed(song['uri'])
+    html = render_template('index.html', audio_embed=audio_embed, song_info=parseURI(song['uri']) + ":" + song['song_info'])
     response = make_response(html)
     return response
 
@@ -53,23 +61,27 @@ def results():
         uri = ""
         title = ""
         artist = ""
-        for r in result:
-            # convert values from string to float
-            if r != 'song_info':
-                result[r] = float(result[r])
-            else:
-                val = result[r].split(':')
-                uri = val[0]
-                title = val[1]
-                artist = val[2]
-        print(uri)
-        print(title)
-        print(artist)
-        # Do this some other way
-        # params.append(0)
-        print(result)
-        # uncomment this to add to db
-        entry = Audio_Params().update_row(uri, result)
+        
+        genres = ["jazz", "rb", "rock", "country", "dance", "hh", "classical", "pop", "ed", "speed", "vol", "valence", "instru"]
+
+        # remove song information from dictonary
+        song_info = result['song_info'].split(":")
+        uri = song_info[0]
+        title = song_info[1]
+        artist = song_info[2]
+
+        result.pop('song_info', None)
+
+        params = []
+        for genre in genres:
+            param_dict = {}
+            param_dict['rating'] = float(result[genre])
+            param_dict['conf'] = float(result[genre + "-conf"])
+            params.append(param_dict)
+        
+        print(params)
+
+        entry = Audio_Params().update_row(uri, params)
     return render_template("results.html", result=result, artist=artist, title=title)
 
 

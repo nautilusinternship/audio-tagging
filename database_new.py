@@ -177,9 +177,9 @@ class Audio_Params(Base):
     # NOTE: for now, using file title to id files, but if we had a large dataset
     # where multiple songs have the same title, we'd want to add an id param
 
-    def del_row(self, title):
+    def del_row(self, uri):
         # assume only one result with title, so pick entry at index 0
-        row = self.get_row(title)[0]
+        row = self.get_row(uri)[0]
         session.delete(row)
         session.commit()
 
