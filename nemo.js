@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 // create counter to track # of song pairs user has picked from
-var rounds = 0;
+let rounds = 0;
 
 const start = (say, sendButton) => {
 	say("In this game, you will choose your preference from provided songs so\
@@ -12,17 +12,19 @@ const start = (say, sendButton) => {
 };
 
 const state = (payload, say, sendButton) => {
-	if(payload == 'Ready' || payload == 'Again'){
+	if( payload == 'Ready' || payload == 'Again'){
 	    // just a few sample genres to test with, obvi will add all once done
-	    sendButton("Please select a genre:", [{title: "pop", payload: "gen:pop"}, 
-	    {title: "rap", payload: "gen:rap"}, {title: "R&B", payload: "gen:rb"}]);
+	    sendButton("Please select a genre:", [{title: "pop", payload: "gen:pop:0"}, 
+	    {title: "rap", payload: "gen:rap:0"}, {title: "R&B", payload: "gen:rb:0"}]);
     }
     /* determine if first round (selecting genre) or subsequent rounds (selecting
        between links). */
-    const payload_type = payload.split(':')[0];
+    let split = payload.split(':')
+    const payload_type = split[0];
+    let round = split[split.length - 1];
     
     // if first round (selected genre)
-    if(payload_type == 'gen'){
+    if (payload_type == 'gen'){
         // once integrated w/ backend, replace link assignment accordingly
 	    var link1 = "https://open.spotify.com/track/2Mee0OQcf0X2059JwUd4Vj?si=kbv7WojqRGOGjL_7UyPGbQ";
 	    var link2 = "https://open.spotify.com/track/4qPsuCJ6GunSYBS7V0MYNR?si=WrfpSVYmTRK9NjjVYDMOoA";
@@ -31,26 +33,27 @@ const state = (payload, say, sendButton) => {
         say("Please select one of the following options.").then(()=>{
             say(link1).then(()=>{
                 say(link2).then(()=>{
-                    rounds += 1;
-                    var str = "Round " + rounds + ": I like..."
+                    // rounds += 1;
+                    round ++;
+                    var str = "Round " + round + ": I like..."
                     sendButton(str,[{title: 'Track 1 better', 
-                    payload: link1},{title: 'Track 2 better', payload: link2}])
+                    payload: link1 + ":" + round},{title: 'Track 2 better', payload: link2 + ":" + round}])
                 })
             })
         })
     }
     
     // if not first round (selecting links)
-    if (payload_type == 'https' && rounds < 5){
+    if (payload_type == 'https' && round < 5){
         var link3 = "https://open.spotify.com/track/7qwt4xUIqQWCu1DJf96g2k?si=bLoEG9E_SUWxq-RAoE5edg";
         var link4 = "https://open.spotify.com/track/0qPeakaeFndczx9OhJIFp6?si=fTLvG9OWS6uLPPH8TBu8kQ";
 	    say("Please select one of the following options.").then(()=>{
             say(link3).then(()=>{
                 say(link4).then(()=>{
-                    rounds++;
-                    var str = "Round " + rounds + ": I like..."
+                    round++;
+                    var str = "Round " + round + ": I like..."
                     sendButton(str,[{title: 'Track 1 better', 
-                    payload: link3},{title: 'Track 2 better', payload: link4}])
+                    payload: link3 + ":" + round},{title: 'Track 2 better', payload: link4 + ":" + round}])
                 })
             })
         })
@@ -77,7 +80,7 @@ const state = (payload, say, sendButton) => {
                 say(link3).then(()=>{
                     say(link4).then(()=>{
                         sendButton("I like...",[{title: 'Track 1 better', 
-                        payload: link3},{title: 'Track 2 better', payload: link4}])
+                        payload: link3 + ":" + round},{title: 'Track 2 better', payload: link4 + ":" + round}])
                     })
                 })
             })
@@ -89,7 +92,7 @@ const state = (payload, say, sendButton) => {
     
     /* after picking preferences, 5 times, return results of kNN on user's 
        "taste vector" (5 recommended songs?) */
-    if(rounds > 4){
+    if(round > 4){
         say("Here is your recommended mini-playlist!").then(()=>{
             var rec1 = "song 1";
             var rec2 = "song 2";
