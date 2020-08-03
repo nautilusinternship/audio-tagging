@@ -38,108 +38,103 @@
 
   <div id="audio-form">
     <!-- <iframe src="https://open.spotify.com/embed/track/6XkuklKiHYVTlVvWlTgQYP" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
-    <iframe
-      src="{{ audio_embed }}"
-      width="300"
-      height="80"
-      frameborder="0"
-      allowtransparency="true"
-      allow="encrypted-media"
-    ></iframe>
+    <iframe src="{{ audio_embed }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media">
+    </iframe>
+
     <form action="/results" method="POST">
       <!-- <p>Title <input type = "text" name = "title" /></p> -->
       <!-- hidden div to save title of song -->
       <input name="song_info" value="{{ song_info }}" type="hidden" />
       <!-- <input value = "1" type="hidden" name="my_id"> -->
       <p>
-        Jazz
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="jazz"/>
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="jazz-conf"/>
+        Jazz: <text id="jazz-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="jazz" id="jazz" onChange='displayValue(jazz)' />
+        Confidence Level: <text id="jazzconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="jazzconf" onChange='displayValue(jazzconf)' />
       </p>
 
       <p>
-        Rhythm and Blues
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="rb" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="rb-conf" />
+        Rhythm and Blues: <text id="rb-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="rb" onChange='displayValue(rb)' />
+        Confidence Level: <text id="rbconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="rbconf" onChange='displayValue(rbconf)' />
       </p>
 
       <p>
-        Rock
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="rock" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="rock-conf" />
+        Rock: <text id="rock-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="rock" onChange='displayValue(rock)' />
+        Confidence Level: <text id="rockconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="rockconf" onChange='displayValue(rockconf)' />
       </p>
 
       <p>
-        Country
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="country" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="country-conf" />
+        Country: <text id="country-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="country" onChange='displayValue(country)' />
+        Confidence Level: <text id="countryconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="countryconf" onChange='displayValue(countryconf)' />
       </p>
 
       <p>
-        Dance
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="dance" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="dance-conf" />
+        Dance: <text id="dance-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="dance" onChange='displayValue(dance)' />
+        Confidence Level: <text id="danceconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="danceconf" onChange='displayValue(danceconf)' />
       </p>
 
       <p>
-        Hip Hop
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="hh" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="hh-conf" />
+        Hip Hop: <text id="hh-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="hh" onChange='displayValue(hh)' />
+        Confidence Level: <text id="hhconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="hhconf" onChange='displayValue(hhconf)' />
       </p>
 
       <p>
-        Classical
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="classical" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="classical-conf" />
+        Classical: <text id="classical-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="classical" onChange='displayValue(classical)' />
+        Confidence Level: <text id="classicalconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="classicalconf" onChange='displayValue(classicalconf)' />
       </p>
 
       <p>
-        Pop
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="pop" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="pop-conf" />
+        Pop: <text id="pop-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="pop" onChange='displayValue(pop)' />
+        Confidence Level: <text id="popconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="popconf" onChange='displayValue(popconf)' />
       </p>
 
       <p>
-        Electronic Dance Music
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="ed" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="ed-conf" />
+        Electronic Dance Music: <text id="ed-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="ed" onChange='displayValue(ed)' />
+        Confidence Level: <text id="edconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="edconf" onChange='displayValue(edconf)' />
       </p>
 
       <p>
-        Speed
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="speed" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="speed-conf" />
+        Speed: <text id="speed-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="speed" onChange='displayValue(speed)' />
+        Confidence Level: <text id="speedconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="speedconf" onChange='displayValue(speedconf)' />
       </p>
 
       <p>
-        Volume
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="vol" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="vol-conf" />
+        Volume: <text id="vol-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="vol" onChange='displayValue(vol)' />
+        Confidence Level: <text id="volconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="volconf" onChange='displayValue(volconf)' />
       </p>
 
       <p>
-        Valence
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="valence" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="valence-conf" />
+        Valence: <text id="valence-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="valence" onChange='displayValue(valence)' />
+        Confidence Level: <text id="valenceconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="valenceconf" onChange='displayValue(valenceconf)' />
       </p>
 
       <p>
-        Instrumental
-        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="instru" />
-        Confidence Level
-        <input type="range" min="0.01" max="1.0" step="0.01" value="0.0" name="instru-conf" />
+        Instrumental: <text id="instru-text"> 0.5 </text>
+        <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="instru" onChange='displayValue(instru)' />
+        Confidence Level: <text id="instruconf-text"> 1.0 </text>
+        <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="instruconf" onChange='displayValue(instruconf)' />
       </p>
 
       <p><input type="submit" value="Submit" id="submit" /></p>
@@ -151,6 +146,22 @@
         />
       </p>
     </form>
+
+      <!-- can organize into a table if we want -->
+      <!-- <table style="width:100%">
+        <tr>
+          <th>Genre</th>
+          <th>Confidence Level</th>
+        </tr>
+        <tr>
+          <td>Jill</td>
+          <td>Smith</td>
+        </tr>
+        <tr>
+          <td>Eve</td>
+          <td>Jackson</td>
+        </tr>
+      </table> -->
   </div>
   <script type="text/javascript">
     // Disables the submit button for 15000 ms
@@ -160,7 +171,17 @@
         let element = document.getElementById("submit");
         element.disabled = false;
       }, 15000);
+
+      
     };
+
+    function displayValue(element) {
+      console.log(element)
+      let textElement = element.name + "-text";
+      console.log(textElement);
+      document.getElementById(textElement).innerHTML = element.value;
+    }
+
   </script>
 
   <!-- 

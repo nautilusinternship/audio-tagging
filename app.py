@@ -76,7 +76,7 @@ def results():
         for genre in genres:
             param_dict = {}
             param_dict['rating'] = float(result[genre])
-            param_dict['conf'] = float(result[genre + "-conf"])
+            param_dict['conf'] = float(result[genre + "conf"])
             params.append(param_dict)
         
         print(params)
