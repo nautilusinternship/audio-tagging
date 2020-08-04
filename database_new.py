@@ -178,8 +178,7 @@ class Audio_Params(Base):
     # where multiple songs have the same title, we'd want to add an id param
 
     def del_row(self, uri):
-        # assume only one result with title, so pick entry at index 0
-        row = self.get_row(uri)[0]
+        row = self.get_row(uri)
         session.delete(row)
         session.commit()
 
