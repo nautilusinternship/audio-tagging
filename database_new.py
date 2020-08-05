@@ -11,6 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import FLOAT, JSON
 from sqlalchemy.orm import load_only
+import pandas as pd
 
 # --------------------------------------------------------------------------
 # helpful resource:
@@ -178,31 +179,35 @@ class Audio_Params(Base):
     # where multiple songs have the same title, we'd want to add an id param
 
     def del_row(self, uri):
-        # assume only one result with title, so pick entry at index 0
+        # only one result with uri, so pick entry at index 0
         row = self.get_row(uri)[0]
         session.delete(row)
         session.commit()
+
+    def build_data_set(self):
+        results = self.get_all()
+        num_params = 13
+        i = 0
+        vector_list = []
+        for row in results:
+            vector = []
+            vector.append(row.uri)
+            # create db dict list for that row
+            db_dict_list = [row.jazz, row.rb, row.rock, row.country, row.dance, row.hh,
+            row.classical, row.pop, row.ed, row.speed, row.vol, row.valence, row.instru]
+            while i < num_params:
+                vector.append(db_dict_list[i]['rating'])
+                i+=1
+            vector_list.append(vector)
+        df = pd.DataFrame(vector_list)
+        df.to_csv('audio_data_set.csv')
+
 
 
 # connect to database
 db = create_engine(db_string)
 Session = sessionmaker(db)
 session = Session()
-
-# test add row
-# title = "test new db!"
-# params = [0.1, 0.22, 0, 0.1, 0.1, 0.6, 0.1, 0, 0.1, 0.1, 0.1, 1, 1]
-# audioP = Audio_Params()
-# audioP.add_row(title, params)
-# test get row
-# assume only one result with title, so pick entry at index 0
-# row = audioP.get_row("0hCB0YR03f6AmQaHbwWDe8")
-# print(str(row.jazz))
-# # test delete row
-# # audioP.del_row(title)
-
-# disconnect
-# session.close()
 
 # NEW TESTS
 
@@ -220,3 +225,9 @@ while i < 13:
     i+=1
 print(dict_list)
 audioP.update_row(uri, dict_list) '''
+
+# disconnect
+# session.close()
+
+# audioP = Audio_Params()
+# audioP.build_data_set()
