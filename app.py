@@ -6,6 +6,7 @@ from flask import Flask, request, redirect, make_response, render_template
 # uncomment this to use db
 # from database import Audio_Params
 from database_new import Audio_Params
+from database_songs import Song
 import csv
 import random
 from itertools import tee
@@ -14,12 +15,17 @@ app = Flask(__name__)
 
 
 def getRandomSong():
-    with open('test1doc.csv') as csvfile:
-        readCSV = csv.reader(csvfile, delimiter=',')
-        # lines= len(list(readCSV))
-        chosen_row = random.choice(list(readCSV))
+    song = Song().get_song()
+    return {"song_info": song.title + ":" + song.artist, 
+            "uri": song.uri}
 
-    return {"song_info": chosen_row[0] + ":" + chosen_row[1], "uri": chosen_row[2]}
+    # old function
+    # with open('test1doc.csv') as csvfile:
+    #     readCSV = csv.reader(csvfile, delimiter=',')
+    #     # lines= len(list(readCSV))
+    #     chosen_row = random.choice(list(readCSV))
+
+    # return {"song_info": chosen_row[0] + ":" + chosen_row[1], "uri": chosen_row[2]}
 
 
 def parseURI(uri):
@@ -82,6 +88,8 @@ def results():
         print(params)
 
         entry = Audio_Params().update_row(uri, params)
+        # update in song db
+        Song().update_row("spotify:track:" + uri, [title, artist])
     return render_template("results.html", result=result, artist=artist, title=title)
 
 
