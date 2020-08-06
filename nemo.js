@@ -1,3 +1,5 @@
+
+
 'use strict';
 const axios = require('axios');
 
@@ -27,12 +29,13 @@ const state = (payload, say, sendButton) => {
     if (payload_type == 'gen'){
         // once integrated w/ backend, replace link assignment accordingly
 	    var link1 = "https://open.spotify.com/track/2Mee0OQcf0X2059JwUd4Vj?si=kbv7WojqRGOGjL_7UyPGbQ";
-	    var link2 = "https://open.spotify.com/track/4qPsuCJ6GunSYBS7V0MYNR?si=WrfpSVYmTRK9NjjVYDMOoA";
+        var link2 = "https://open.spotify.com/track/4qPsuCJ6GunSYBS7V0MYNR?si=WrfpSVYmTRK9NjjVYDMOoA";
+        var test_alex_link = "https://p.scdn.co/mp3-preview/8766887d3e1b11ee435bd9008d0b6610d28b1eef?cid=162b7dc01f3a4a2ca32ed3cec83d1e02";
 	    
 	    // display song previews; user selects preference
         say("Please select one of the following options.").then(()=>{
             say(link1).then(()=>{
-                say(link2).then(()=>{
+                say(test_alex_link).then(()=>{
                     // rounds += 1;
                     round ++;
                     var str = "Round " + round + ": I like..."
