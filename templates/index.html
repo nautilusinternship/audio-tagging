@@ -25,17 +25,17 @@
   <br>
   <div id="description">Please drag the following sliders based on how accurately you believe they describe the song below.
   <br>
-   For each slider category, please also indicate how <b>confident</b> you are in your ranking 
+   For each slider category, please also indicate how <span class="pink">confident</span> you are in your ranking 
    <br>
    (with 1 being very confident and 0 being not confident)
   <br>
-  Use the "skip song" button if you have already tagged the song below
+  Use the <span class="pink">"skip song"</span> button if you have already tagged the song below
   <br>
   *****
   <br><i>
-  For the <b>genre tags</b> (the first nine categories) values closer to 1 mean that the song's genre is very similar to that one
+  For the <span class="pink">genre tags</span> (the first nine categories) values closer to 1 mean that the song's genre is very similar to that one
   <br>
-  For the <b>speed</b> and <b>volume</b> tags, values closer to 1 mean the songs are faster and louder, respectively
+  For the <span class="pink">speed</span> and <span class="pink">volume</span> tags, values closer to 1 mean the songs are faster and louder, respectively
   </i>
 </div>
   <br>
@@ -140,20 +140,20 @@
       </p>
 
       <p>
-        *Valence: <text id="valence-text"> 0.5 </text>
+        <span class="pink">*</span>Valence: <text id="valence-text"> 0.5 </text>
         <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="valence" onChange='displayValue(valence)' />
         Confidence Level: <text id="valenceconf-text"> 1.0 </text>
         <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="valenceconf" onChange='displayValue(valenceconf)' />
       </p>
 
       <p>
-        **Instrumental: <text id="instru-text"> 0.5 </text>
+        <span class="pink">**</span>Instrumental: <text id="instru-text"> 0.5 </text>
         <input type="range" min="0.0" max="1.0" step="0.01" value="0.5" name="instru" onChange='displayValue(instru)' />
         Confidence Level: <text id="instruconf-text"> 1.0 </text>
         <input type="range" min="0.01" max="1.0" step="0.01" value="1.0" name="instruconf" onChange='displayValue(instruconf)' />
       </p>
 
-      <div id="bottom text"><i>*A valence value closer to 1 means the song sounds very positive (happy, cheerful, etc.)
+      <div id="bottom-text"><i>*A valence value closer to 1 means the song sounds very positive (happy, cheerful, etc.)
         <br>
         **An instrumental value closer to 1 means the song contains no vocal content (words, singing). 
         <br>
