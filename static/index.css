@@ -21,7 +21,7 @@ body {
 }
 
 #title {
-  font-size: 2em;
+  font-size: 5em;
   /* left:50%; */
   text-align: center;
   color: pink;
@@ -30,7 +30,6 @@ body {
 #description {
   top: 2%;
   text-align: center;
-  font-size: .75em;
 }
 
 #audio-form {
@@ -40,10 +39,6 @@ body {
   left: 0;
   right: 0;
   text-align: center;
-}
-
-#bottom-text {
-  font-size: 0.75em;
 }
 
 #ranking {
