@@ -198,9 +198,9 @@ class Audio_Params(Base):
                 vector.append(db_dict_list[i]['rating'])
                 i+=1
             vector_list.append(vector)
-        df = pd.DataFrame(vector_list)
+        df = pd.DataFrame(vector_list, columns=['uri', 'jazz', 'rb', 'rock', 'country', 'dance', 'hh', 'classical', 'pop', 'ed', 'speed', 'vol', 'valence', 'instru'])
         path=r'../playlist-generator/'
-        df.to_csv(path+'audio_data_set.csv')
+        df.to_csv(path+'audio_data_set.csv', index=False)
 
 
 
