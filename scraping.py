@@ -48,16 +48,18 @@ while playlist_index < len(playlists):
 
     # get title, artist, and uri for each of the 5 songs from the playlist and add to csv file
     while i < number_items:
+        song_uri = song['items'][str(i)]['track']['uri']
         song_title = song['items'][str(i)]['track']['name']
         song_artist = song['items'][str(i)]['track']['album']['artists'][0]['name']
-        song_uri = song['items'][str(i)]['track']['uri']
+        song_images = song['items'][str(i)]['track']['album']['images'][0]['url']
+        song_preview_uri = song['items'][str(i)]['track']['preview_url']
 
         # open file in append mode
-        with open('test1doc.csv', 'a+', newline='') as write_obj:
+        with open('test5doc.csv', 'a+', newline='') as write_obj:
             # create a writer object from the csv module
             csv_writer = writer(write_obj)
             # add contents of list as last row in the csv file
-            csv_writer.writerow([song_title, song_artist, song_uri])
+            csv_writer.writerow([song_uri, song_title, song_artist, song_images, song_preview_uri])
 
         i = i + 1
 
