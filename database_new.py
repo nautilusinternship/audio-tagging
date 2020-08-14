@@ -186,7 +186,6 @@ class Audio_Params(Base):
     def build_data_set(self):
         results = self.get_all()
         num_params = 13
-        i = 0
         vector_list = []
         for row in results:
             vector = []
@@ -194,12 +193,14 @@ class Audio_Params(Base):
             # create db dict list for that row
             db_dict_list = [row.jazz, row.rb, row.rock, row.country, row.dance, row.hh,
             row.classical, row.pop, row.ed, row.speed, row.vol, row.valence, row.instru]
+            i = 0
             while i < num_params:
                 vector.append(db_dict_list[i]['rating'])
                 i+=1
             vector_list.append(vector)
-        df = pd.DataFrame(vector_list)
-        df.to_csv('audio_data_set.csv')
+        df = pd.DataFrame(vector_list, columns=['uri', 'jazz', 'rb', 'rock', 'country', 'dance', 'hh', 'classical', 'pop', 'ed', 'speed', 'vol', 'valence', 'instru'])
+        path=r'../playlist-generator/'
+        df.to_csv(path+'audio_data_set.csv', index=False)
 
 
 
@@ -228,5 +229,5 @@ audioP.update_row(uri, dict_list) '''
 # disconnect
 # session.close()
 
-# audioP = Audio_Params()
-# audioP.build_data_set()
+audioP = Audio_Params()
+audioP.build_data_set()
